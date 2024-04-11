@@ -28,7 +28,8 @@ SITEKEY_DICT = {
     LITE: os.environ.get('LITE_SITE_KEY'),
     TRON: os.environ.get('TRON_SITE_KEY'),
 }
-
+print(os.environ.get('DOGE_SITE_KEY'))
+print(SITEKEY_DICT)
 MAIL_ADDRESS = os.environ.get('MAIL_ADDRESS')
 
 PASSWORD_DICT = {
