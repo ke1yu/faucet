@@ -1,0 +1,2 @@
+2captcha-python==1.2.4
+selenium==4.17.2
