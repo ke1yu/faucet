@@ -21,20 +21,20 @@ URL_DICT = {
 LOGIN_URL = 'login.php'
 GAMES_URL = 'games.php'
 
-TWOCAPTCHA_API_KEY = os.environ['TWOCAPTCHA_API_KEY']
+TWOCAPTCHA_API_KEY = os.environ.get('TWOCAPTCHA_API_KEY')
 
 SITEKEY_DICT = {
-    DOGE: os.environ['DOGE_SITE_KEY'],
-    LITE: os.environ['LITE_SITE_KEY'],
-    TRON: os.environ['TRON_SITE_KEY'],
+    DOGE: os.environ.get('DOGE_SITE_KEY'),
+    LITE: os.environ.get('LITE_SITE_KEY'),
+    TRON: os.environ.get('TRON_SITE_KEY'),
 }
 
-MAIL_ADDRESS = os.environ['MAIL_ADDRESS']
+MAIL_ADDRESS = os.environ.get('MAIL_ADDRESS')
 
 PASSWORD_DICT = {
-    DOGE: os.environ['DOGE_PASSWORD'],
-    LITE: os.environ['LITE_PASSWORD'],
-    TRON: os.environ['TRON_PASSWORD']
+    DOGE: os.environ.get('DOGE_PASSWORD'),
+    LITE: os.environ.get('LITE_PASSWORD'),
+    TRON: os.environ.get('TRON_PASSWORD')
 }
 
 
