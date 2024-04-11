@@ -69,13 +69,14 @@ def solve_captcha(driver, sitekey, url):
 
 
 def login(driver, site):
-  driver.find_element(By.CSS_SELECTOR,
-                      'input[id="user_email"]').send_keys(MAIL_ADDRESS)
-  driver.find_element(By.CSS_SELECTOR,
-                      'input[id="password"]').send_keys(PASSWORD_DICT[site])
+  driver.find_element(By.CSS_SELECTOR,'input[id="user_email"]').send_keys(MAIL_ADDRESS)
+  driver.find_element(By.CSS_SELECTOR,'input[id="password"]').send_keys(PASSWORD_DICT[site])
+  print(SITEKEY_DICT)
   solve_captcha(driver, SITEKEY_DICT[site], URL_DICT[site])
+  print(7)
   login_btn = driver.find_element(By.CSS_SELECTOR,
                                   'button[id="process_login"]')
+  print(8)
   login_btn.click()
 
 
