@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from twocaptcha import TwoCaptcha
 import os
 
+print(1)
 
 DOGE = 'doge'
 LITE = 'lite'
