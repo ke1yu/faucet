@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions  # Import for Chrome options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 from twocaptcha import TwoCaptcha
 import os
 
@@ -78,35 +79,40 @@ def login(driver, site):
 
 
 def spin(driver, site):
+  modal_wait = WebDriverWait(driver, 10)
+  modal_wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[class="select_game"]')))
+  driver.execute_script('javascript:show_spin_modal()')
   spin_btn = driver.find_element(By.CSS_SELECTOR, 'button[id="spin_wheel"]')
-  if spin_btn.is_enabled():
-    driver.execute_script('javascript:show_spin_modal()')
-    solve_captcha(driver, SITEKEY_DICT[site], URL_DICT[site] + GAMES_URL)
-    spin_btn.click()
-
+  try:
+    before_wait = WebDriverWait(driver, 60)
+    before_wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[id="spin_wheel"]')))
+    if spin_btn.is_enabled():
+      solve_captcha(driver, SITEKEY_DICT[site], URL_DICT[site] + GAMES_URL)
+      
+      spin_btn.click()
+      after_wait = WebDriverWait(driver, 10)
+      after_wait.until(EC.presence_of_element_located((By.CLASS_NAME, "jq-toast-heading")))
+  except TimeoutException:
+    print('TimeoutException')
+    
 
 def selenium_task():
   options = ChromeOptions()  # Change to ChromeOptions
-  options.add_argument("--headless")
+  options.add_argument("--headless=new")
   options.add_argument("--disable-gpu")
   options.add_argument("--no-sandbox")
   options.add_argument("--disable-dev-shm-usage")
 
   # Perform the selenium task
-  try:
-    with webdriver.Chrome(options=options) as driver:
-      driver.implicitly_wait(10)
-      for site in SITE_LIST:
-        login_page_url = URL_DICT[site] + LOGIN_URL
-        driver.get(login_page_url)
-        assert "king" in driver.title
-        if driver.current_url == login_page_url:
-          login(driver, site)
-        spin(driver, site)
-      wait = WebDriverWait(driver, 10)
-      wait.until(EC.presence_of_element_located((By.CLASS_NAME, "jq-toast-heading")))
-  except Exception as e:
-    print(e)
+  with webdriver.Chrome(options=options) as driver:
+    driver.implicitly_wait(10)
+    for site in SITE_LIST:
+      login_page_url = URL_DICT[site] + LOGIN_URL
+      driver.get(login_page_url)
+      assert "king" in driver.title
+      if driver.current_url == login_page_url:
+        login(driver, site)
+      spin(driver, site)
 
 
 if __name__ == '__main__':
