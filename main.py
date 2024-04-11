@@ -106,7 +106,9 @@ def selenium_task():
         driver.get(login_page_url)
         assert "king" in driver.title
         if driver.current_url == login_page_url:
+          print(5)
           login(driver, site)
+          print(6)
         spin(driver, site)
       wait = WebDriverWait(driver, 10)
       wait.until(EC.presence_of_element_located((By.CLASS_NAME, "jq-toast-heading")))
