@@ -15,7 +15,15 @@ jobs:
         with:
           python-version: '3.10'
           architecture: 'x64'
-        secrets: inherit
+        env:
+            DOGE_SITE_KEY: ${{ secrets.DOGE_SITE_KEY }}
+            LITE_SITE_KEY: ${{ secrets.LITE_SITE_KEY }}
+            TRON_SITE_KEY: ${{ secrets.TRON_SITE_KEY }}
+            TWOCAPTCHA_API_KEY: ${{ secrets.TWOCAPTCHA_API_KEY }}
+            MAIL_ADDRESS: ${{ secrets.MAIL_ADDRESS }}
+            DOGE_PASSWORD: ${{ secrets.DOGE_PASSWORD }}
+            LITE_PASSWORD: ${{ secrets.LITE_PASSWORD }}
+            TRON_PASSWORD: ${{ secrets.TRON_PASSWORD }}
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run Python
