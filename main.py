@@ -28,9 +28,6 @@ SITEKEY_DICT = {
     LITE: os.environ['LITE_SITE_KEY'],
     TRON: os.environ['TRON_SITE_KEY'],
 }
-LITE_CF_SITEKEY = os.environ['LITE_CF_SITE_KEY']
-LITE_CF_DATA = os.environ['LITE_CF_DATA']
-LITE_CF_PAGEDATA = os.environ['LITE_CF_PAGEDATA']
 
 MAIL_ADDRESS = os.environ['MAIL_ADDRESS']
 
