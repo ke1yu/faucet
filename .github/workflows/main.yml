@@ -1,9 +1,8 @@
 name: Faucet
 
 on:
-  schedule:
-    - cron: '*/65 * * * *'
-  workflow_dispatch:
+  repository_dispatch:
+    types: [on-demand-test]
 
 jobs:
   faucet_job:
