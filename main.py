@@ -7,12 +7,11 @@ from twocaptcha import TwoCaptcha
 import os
 
 print(1)
-
 DOGE = 'doge'
 LITE = 'lite'
 TRON = 'tron'
 SITE_LIST = [DOGE, TRON]
-
+print(2)
 URL_DICT = {
     DOGE: 'https://dogeking.io/',
     LITE: 'https://liteking.io/',
@@ -86,7 +85,7 @@ def spin(driver, site):
     driver.execute_script('javascript:show_spin_modal()')
     solve_captcha(driver, SITEKEY_DICT[site], URL_DICT[site] + GAMES_URL)
     spin_btn.click()
-    
+
 
 def selenium_task():
   options = ChromeOptions()  # Change to ChromeOptions
@@ -99,9 +98,11 @@ def selenium_task():
   try:
     with webdriver.Chrome(options=options) as driver:
       driver.implicitly_wait(10)
-
+      print(3)
+      print(SITE_LIST)
       for site in SITE_LIST:
         login_page_url = URL_DICT[site] + LOGIN_URL
+        print(4)
         driver.get(login_page_url)
         assert "king" in driver.title
         if driver.current_url == login_page_url:
