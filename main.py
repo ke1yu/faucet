@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from twocaptcha import TwoCaptcha
 import os
 
-print(1)
+
 DOGE = 'doge'
 LITE = 'lite'
 TRON = 'tron'
@@ -69,19 +69,11 @@ def solve_captcha(driver, sitekey, url):
 
 
 def login(driver, site):
-  print(6.5)
-  print(SITE_LIST)
   driver.find_element(By.CSS_SELECTOR,'input[id="user_email"]').send_keys(MAIL_ADDRESS)
-  print(6.6)
-  print(PASSWORD_DICT)
   driver.find_element(By.CSS_SELECTOR,'input[id="password"]').send_keys(PASSWORD_DICT[site])
-  print(SITEKEY_DICT)
-  print(6.7)
   solve_captcha(driver, SITEKEY_DICT[site], URL_DICT[site])
-  print(7)
   login_btn = driver.find_element(By.CSS_SELECTOR,
                                   'button[id="process_login"]')
-  print(8)
   login_btn.click()
 
 
@@ -104,17 +96,12 @@ def selenium_task():
   try:
     with webdriver.Chrome(options=options) as driver:
       driver.implicitly_wait(10)
-      print(3)
-      print(SITE_LIST)
       for site in SITE_LIST:
         login_page_url = URL_DICT[site] + LOGIN_URL
-        print(4)
         driver.get(login_page_url)
         assert "king" in driver.title
         if driver.current_url == login_page_url:
-          print(5)
           login(driver, site)
-          print(6)
         spin(driver, site)
       wait = WebDriverWait(driver, 10)
       wait.until(EC.presence_of_element_located((By.CLASS_NAME, "jq-toast-heading")))
