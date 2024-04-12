@@ -79,11 +79,11 @@ def login(driver, site):
 
 
 def spin(driver, site):
-  modal_wait = WebDriverWait(driver, 30)
-  modal_wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[class="select_game"]')))
-  driver.execute_script('javascript:show_spin_modal()')
-  spin_btn = driver.find_element(By.CSS_SELECTOR, 'button[id="spin_wheel"]')
   try:
+    modal_wait = WebDriverWait(driver, 10)
+    modal_wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[class="select_game"]')))
+    driver.execute_script('javascript:show_spin_modal()')
+    spin_btn = driver.find_element(By.CSS_SELECTOR, 'button[id="spin_wheel"]')
     before_wait = WebDriverWait(driver, 60)
     before_wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[id="spin_wheel"]')))
     if spin_btn.is_enabled():
