@@ -80,17 +80,17 @@ def login(driver, site):
 
 def spin(driver, site):
   try:
-    modal_wait = WebDriverWait(driver, 10)
+    modal_wait = WebDriverWait(driver, 20)
     modal_wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div[class="select_game"]')))
     driver.execute_script('javascript:show_spin_modal()')
     spin_btn = driver.find_element(By.CSS_SELECTOR, 'button[id="spin_wheel"]')
-    before_wait = WebDriverWait(driver, 60)
+    before_wait = WebDriverWait(driver, 20)
     before_wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[id="spin_wheel"]')))
     if spin_btn.is_enabled():
       solve_captcha(driver, SITEKEY_DICT[site], URL_DICT[site] + GAMES_URL)
       
       spin_btn.click()
-      after_wait = WebDriverWait(driver, 10)
+      after_wait = WebDriverWait(driver, 20)
       after_wait.until(EC.presence_of_element_located((By.CLASS_NAME, "jq-toast-heading")))
   except TimeoutException:
     print('TimeoutException')
